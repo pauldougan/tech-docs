@@ -30,15 +30,15 @@ The example shows how to use the following endpoints:
 ## Prerequisites
 
 - [Install git](https://github.com/git-guides/install-git) if required. 
-- [Install Docker Desktop](https://docs.docker.com/get-started/get-docker/) (you'll use this to run the simulator).
+- [Install nvm](https://github.com/nvm-sh/nvm) if required. 
+- [Install Docker Desktop](https://docs.docker.com/get-started/get-docker/) if required (you'll use this to run the simulator).
 - [Check you are on v4.34 or higher for Docker Desktop](https://www.docker.com/blog/how-to-check-docker-version/). 
 - [Enable Docker Host networking](https://docs.docker.com/engine/network/drivers/host/#docker-desktop).  
-- [Install nvm](https://github.com/nvm-sh/nvm). 
+
 
 ## Run the example service with the GOV.UK One Login simulator 
 
 This should take approximately 5 minutes to complete. 
-
 
 1.  Get the code repository containing the Typescript example and set your working directory
 
@@ -99,31 +99,73 @@ Before you start, make sure you have:
 
 #### Configure the integration environment
 
-1. On the command line, run `git clone https://github.com/gov-uk-one-login/onboarding-examples && cd onboarding-examples/clients/nodejs`. This will get the example Typescript code and set your working directory.
-1. Run `nvm install 22.11.0 && nvm use 22.11.0` – this makes sure you're using the correct version of Node.js. 
-1. Run `npm run generatekeys` – this generates a key pair if one does not exist yet.
-1. Launch the [GOV.UK One Login admin tool](https://admin.sign-in.service.gov.uk/register/enter-email-address).
-1. Follow on-screen instructions to [register and manage your service](https://docs.sign-in.service.gov.uk/before-integrating/register-and-manage-your-service/) in the integration environment.
-1. Configure your service name(s) as `onboarding-example - {DEPARTMENT} - {SERVICE_TEAM_NAME}`
-1. Find your `Client ID` value and make a record of it. You'll need this later when configuring the example application.
-1. Configure your service including (at a minimum): 
-* a redirect URI: `http://localhost:8080/oidc/authorization-code/callback`
-* a public key (copy the static public key from the `./public_key.pem` file, including the headers)
-* scopes: `openid`, `email`, `phone`
-* a post logout redirect URI: `http://localhost:8080/oidc/logged-out`
+1.  Get the code repository containing the Typescript example and set your working directory
+
+    ```bash
+    git clone https://github.com/govuk-one-login/onboarding-examples
+    cd onboarding-examples/clients/nodejs
+    ```
+
+1. Set the Node.js version.
+
+    ```bash
+    nvm install 22.11.0
+    nvm use 22.11.0
+    ``` 
+
+1. Generates a key pair if one does not exist.
+
+    ```bash
+    npm run generatekeys
+    ```
+
+1. Launch the GOV.UK One Login admin tool.
+
+    Browse to https://admin.sign-in.service.gov.uk/register/enter-email-address and follow on-screen instructions to [register and manage your service](https://docs.sign-in.service.gov.uk/before-integrating/register-and-manage-your-service/) in the integration environment.
+
+1. Set your service name(s) as 
+
+    `onboarding-example - {DEPARTMENT} - {SERVICE_TEAM_NAME}`
+
+1. Find your Client ID value and make a record of it. You'll need this later when configuring the example application.
+
+1. Configure your service setting (as a minimum):
+
+|setting|description|
+|-|-|
+|redirect URI|`http://localhost:8080/oidc/authorization-code/callback`|
+|public key |copy the static public key from the `./public_key.pem` file, including the headers|
+|scopes| `openid`, `email`, `phone`|
+|post logout redirect URI| `http://localhost:8080/oidc/logged-out`|
+
 there's further [guidance on registering and managing your service](/before-integrating/register-and-manage-your-service/#register-and-manage-your-service) if you want to include additional fields
 
 #### Configure the example application 
  
-1. Create a `.env.integration` configuration file by copying the `.env.integration.example` file to `.env.integration`. 
-1. Edit `.env.integration` in your preferred source editor and update:
-the `{CLIENT_ID}` placeholder to contain the Client ID from the GOV.UK One Login admin tool. 
-the `{PRIVATE_KEY}` placeholder with XXXXX. 
+1. Create a configuration file.
+
+    Copy the `.env.integration.example` file to `.env.integration`. 
+
+1. Update the configuration file.
+
+Open `.env.integration` in your preferred source editor and update:
+
+- the `{CLIENT_ID}` placeholder to contain the Client ID from the GOV.UK One Login admin tool. 
+- the `{PRIVATE_KEY}` placeholder with the contents of the `private_key.pem` file.   
 
 #### Start the example application and follow the journey
 
-1. Run `npm ci && npm run dev:int` – this installs the dependencies and runs the application. 
-1. View the example service by browsing to [http://localhost:8080](http://localhost:8080).
+1. Start the example 
+
+    ```bash
+    npm ci
+    npm run dev:sim
+    ```
+
+1. Browse to the example application. 
+
+    [http://localhost:8080](http://localhost:8080)
+
 1. Select **Start by logging in**.
 1. If you see a prompt asking for a username and password, you can find the credentials by scrolling down to the bottom of your service's homepage on the GOV.UK One Login Admin tool. 
 1. Follow the on-screen instructions to create a GOV.UK One Login. 
