@@ -1,19 +1,18 @@
 # Host to use for canonical URL generation (without trailing slash)
-# Hosting on PaaS on the default domain for now
 host: https://docs.sign-in.service.gov.uk
 
 # Header-related options
-show_govuk_logo: true
-service_name: One Login
-service_link: https://www.sign-in.service.gov.uk/
+show_govuk_logo: false
+service_name: Tech docs
+#service_link: https://www.sign-in.service.gov.uk/
 
 # This documentation is for the Pilot scheme
-phase: Beta
+phase: EXPERIMENT
 
 # Links to show on right-hand-side of header
 header_links:
-  GitHub: https://github.com/govuk-one-login/tech-docs
-  Support: https://docs.sign-in.service.gov.uk/support/
+  GitHub: https://github.com/pauldougan/tech-docs
+  Support: mailto:paul.dougan@digital.cabinet-office.gov.uk
 
 # Links to show in the page footer
 footer_links:
@@ -33,7 +32,7 @@ collapsible_nav: true
 max_toc_heading_level: 3
 
 # Prevent robots from indexing (e.g. whilst in development)
-prevent_indexing: false
+prevent_indexing: true
 
 # redirection of old addresses to new pages
 redirects:
@@ -42,7 +41,7 @@ redirects:
 
 # Contribution banner
 show_contribution_banner: true
-github_repo: govuk-one-login/tech-docs # used to generate links in the contribution banner
+github_repo: pauldougan/tech-docs # used to generate links in the contribution banner
 github_branch: main
 
 owner_slack_workspace: gds
