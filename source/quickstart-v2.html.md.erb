@@ -7,7 +7,7 @@ review_in: 6 months
 
 <!-- https://govukverify.atlassian.net/browse/AP-358 -->
 
-# Quick start for GOV.UK One Login  
+# Quick start v2  
 > Run an example service using the GOV.UK One Login simulator or integration environment.
 
 ## Introduction
@@ -18,14 +18,16 @@ In this guide, you'll create an example service using an example Typescript appl
 
 The example shows how to use the following endpoints:
 
-- `/.well-known/openid-configuration`
-- `/.well-known/jwks.json`
-- `/.well-known/did.json`
-- `/trustmark`
-- `/authorize`
-- `/userinfo`
-- `/token`
-- `/logout`
+|endpoint|description|
+|-|-|
+|`/.well-known/openid-configuration`|OIDC discovery endpoint|
+|`/.well-known/jwks.json`||
+|`/.well-known/did.json`||
+|`/trustmark`||
+|`/authorize`||
+|`/userinfo`||
+|`/token`||
+|`/logout`||
 
 ## Prerequisites
 
@@ -36,57 +38,57 @@ The example shows how to use the following endpoints:
 - [Enable Docker Host networking](https://docs.docker.com/engine/network/drivers/host/#docker-desktop).  
 
 
-## Run the example service with the GOV.UK One Login simulator 
+## Run the example service with the simulator 
 
 This should take approximately 5 minutes to complete. 
 
-1.  Get the code repository containing the Typescript example and set your working directory
+<div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">1</div>  Get the code repository containing the Typescript example and set your working directory
 
-    ```bash
-    git clone https://github.com/govuk-one-login/onboarding-examples
-    cd onboarding-examples/clients/nodejs
-    ```
+```bash
+git clone https://github.com/govuk-one-login/onboarding-examples
+cd onboarding-examples/clients/nodejs
+```
 
-1. Set the Node.js version.
+ <div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">2</div> Set the Node.js version.
 
-    ```bash
-    nvm install 22.11.0
-    nvm use 22.11.0
-    ``` 
+```bash
+nvm install 22.11.0
+nvm use 22.11.0
+``` 
 
-1. Start the simulator in a Docker container and check it is running.
+<div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">3</div> Start the simulator in a Docker container and check it is running.
 
-    ```bash
-    npm run simulator:start
-    curl -s http://localhost:3000/.well-known/openid-configuration | jq .
-    ```
-    You should see the [OpenID Connect metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) in JSON format.
+ ```bash
+npm run simulator:start
+curl -s http://localhost:3000/.well-known/openid-configuration | jq .
+ ```
+You should see the [OpenID Connect metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) in JSON format.
 
-1. Start the example 
+<div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">4</div> Start the example 
 
-    ```bash
-    npm ci
-    npm run dev:sim
-    ```
+```bash
+npm ci
+npm run dev:sim
+```
 
-1. Browse to the example application. 
+<div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">5</div> Browse to the example application. 
 
-    [http://localhost:8080](http://localhost:8080)
+[http://localhost:8080](http://localhost:8080)
     
-1. Select the **Start by logging in** button.
+<div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">6</div> Select the **Start by logging in** button.
 
-    You should see the response from the `/userinfo` and `/token` endpoints: ID and access tokens and user attributes. 
+You should see the response from the `/userinfo` and `/token` endpoints: ID and access tokens and user attributes. 
 
-1. Select the **Verify** button.
+<div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">7</div> Select the **Verify** button.
 
-    You should see a successful identity response including the `coreIdentityJWT`, `returnCode` (empty), `address` claims. 
+You should see a successful identity response including the `coreIdentityJWT`, `returnCode` (empty), `address` claims. 
 
-1. Select the **Sign out** link in the top header.
+ <div style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">8</div> Select the **Sign out** link in the top header.
 
-    You'll see a page which says **Logged out**. 
+You'll see a page which says **Logged out**. 
 
 
-## Run the example service using the GOV.UK One Login integration environment   
+## Run the example service using the integration environment   
 
 This should take approximately 15 minutes to complete. 
 
@@ -95,18 +97,18 @@ Before you start, make sure you have:
 * a [recognised government email address](https://admin.sign-in.service.gov.uk/register/enter-email-address) 
 * a UK mobile phone with a number starting `07` or `+44` 
 
-### Run an authentication journey using the GOV.UK One Login integration environment
+### Run an authentication journey using the integration environment
 
 #### Configure the integration environment
 
-1.  Get the code repository containing the Typescript example and set your working directory
+<span style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">1</span> Get the code repository containing the Typescript example and set your working directory
 
     ```bash
     git clone https://github.com/govuk-one-login/onboarding-examples
     cd onboarding-examples/clients/nodejs
     ```
 
-1. Set the Node.js version.
+<span style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #000; color: #fff; text-align: center; line-height: 30px; font-size: 16px; font-weight: bold;">2</span> Set the Node.js version.
 
     ```bash
     nvm install 22.11.0
